@@ -24,8 +24,7 @@ stages:
           - task: Docker@2
             inputs:
               containerRegistry: 'DockerSVC'
-              repository: 'user-management'
+              repository: 'umakanth455/user-management'
               command: 'buildAndPush'
               Dockerfile: '**/Dockerfile'
-              tags: |
-                  $(tag)
+              tags: '$(tag)'
