@@ -45,7 +45,7 @@ stages:
     # Task-3: Publish build artifacts (Publish build to Azure Pipelines)           
           - task: replacetokens@5
             inputs:
-              rootDirectory: '$(Build.ArtifactStagingDirectory)/kube-manifests'
+              rootDirectory: '$(Build.ArtifactStagingDirectory)/'
               targetFiles: '06-UserMgmtWebApp-Deployment.yml'
               encoding: 'auto'
               tokenPattern: 'default'
