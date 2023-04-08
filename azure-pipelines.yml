@@ -20,7 +20,10 @@ stages:
       - job: BuildJob
         displayName: Build
         steps:
-           
+          - task: WhiteSource@21
+            inputs:
+              cwd: '$(System.DefaultWorkingDirectory)'
+              projectName: 'user-mgmt'
           - task: Docker@2
             inputs:
               containerRegistry: 'DockerSVC'
