@@ -29,7 +29,7 @@ stages:
             inputs:
               SonarQube: 'sonarsvc'
               scannerMode: 'Other'
-              extraProperties: 'sonar.projectKey=Aks-terraform-devops-stacksimplify'
+              extraProperties: 'sonar.projectKey=Aks-terraform-devops-stacksimplify_Aks-terraform-devops-stacksimplify_AYdmyFUiwV4bTNVPSQ2V'
           
           - task: SonarQubeAnalyze@5
 
