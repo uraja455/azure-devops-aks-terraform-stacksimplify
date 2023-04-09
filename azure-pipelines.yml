@@ -20,19 +20,16 @@ stages:
       - job: BuildJob
         displayName: Build
         steps:
-          #- task: WhiteSource@21
-           # inputs:
-            #  cwd: '$(System.DefaultWorkingDirectory)'
-             # projectName: 'user-mgmt'
+          - task: WhiteSource@21
+            inputs:
+              cwd: '$(System.DefaultWorkingDirectory)'
+              projectName: 'user-mgmt'
           
           - task: SonarQubePrepare@5
             inputs:
               SonarQube: 'sonarsvc'
-              scannerMode: 'CLI'
-              configMode: 'file'
-              extraProperties: |
-                sonar.projectKey=Aks-terraform-devops-stacksimplify_Aks-terraform-devops-stacksimplify_AYdmyFUiwV4bTNVPSQ2V
-                sonar.java.binaries= **/*.java
+              scannerMode: 'Other'
+              extraProperties: 'sonar.projectKey=Aks-terraform-devops-stacksimplify_Aks-terraform-devops-stacksimplify_AYdmyFUiwV4bTNVPSQ2V'
           
           - task: Maven@4
             inputs:
@@ -42,7 +39,8 @@ stages:
               mavenVersionOption: 'Default'
               mavenAuthenticateFeed: false
               effectivePomSkip: false
-              sonarQubeRunAnalysis: false
+              sonarQubeRunAnalysis: true
+              sqMavenPluginVersionChoice: 'latest'
           - task: SonarQubeAnalyze@5
           - task: SonarQubePublish@5
             inputs:
