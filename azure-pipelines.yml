@@ -30,7 +30,9 @@ stages:
               SonarQube: 'sonarsvc'
               scannerMode: 'CLI'
               configMode: 'file'
-              extraProperties: 'sonar.projectKey=Aks-terraform-devops-stacksimplify_Aks-terraform-devops-stacksimplify_AYdmyFUiwV4bTNVPSQ2V'
+              extraProperties: |
+                sonar.projectKey=Aks-terraform-devops-stacksimplify_Aks-terraform-devops-stacksimplify_AYdmyFUiwV4bTNVPSQ2V
+                sonar.java.binaries= **/*.java
           
           - task: Maven@4
             inputs:
