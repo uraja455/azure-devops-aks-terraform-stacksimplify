@@ -32,6 +32,15 @@ stages:
               configMode: 'file'
               extraProperties: 'sonar.projectKey=Aks-terraform-devops-stacksimplify_Aks-terraform-devops-stacksimplify_AYdmyFUiwV4bTNVPSQ2V'
           
+          - task: Maven@4
+            inputs:
+              mavenPomFile: 'pom.xml'
+              publishJUnitResults: false
+              javaHomeOption: 'JDKVersion'
+              mavenVersionOption: 'Default'
+              mavenAuthenticateFeed: false
+              effectivePomSkip: false
+              sonarQubeRunAnalysis: false
           - task: SonarQubeAnalyze@5
           - task: SonarQubePublish@5
             inputs:
