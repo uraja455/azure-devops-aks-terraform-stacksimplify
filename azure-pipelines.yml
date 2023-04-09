@@ -28,14 +28,16 @@ stages:
           - task: SonarQubePrepare@5
             inputs:
               SonarQube: 'sonarsvc'
-              scannerMode: 'Other'
+              scannerMode: 'CLI'
+              configMode: 'file'
               extraProperties: 'sonar.projectKey=Aks-terraform-devops-stacksimplify_Aks-terraform-devops-stacksimplify_AYdmyFUiwV4bTNVPSQ2V'
           
           - task: SonarQubeAnalyze@5
-
           - task: SonarQubePublish@5
             inputs:
-              pollingTimeoutSec: '300'
+              pollingTimeoutSec: '300' 
+
+          
           - task: Docker@2
             inputs:
               containerRegistry: 'DockerSVC'
@@ -43,6 +45,8 @@ stages:
               command: 'buildAndPush'
               Dockerfile: '**/Dockerfile'
               tags: '$(tag)'
+            
+           
 
           - bash: echo Contents in System Default Working Directory; ls -R $(System.DefaultWorkingDirectory)        
           - bash: echo Before copying Contents in Build Artifact Directory; ls -R $(Build.ArtifactStagingDirectory)        
