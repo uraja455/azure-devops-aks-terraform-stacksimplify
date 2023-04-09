@@ -20,10 +20,10 @@ stages:
       - job: BuildJob
         displayName: Build
         steps:
-          - task: WhiteSource@21
-            inputs:
-              cwd: '$(System.DefaultWorkingDirectory)'
-              projectName: 'user-mgmt'
+          #- task: WhiteSource@21
+           # inputs:
+            #  cwd: '$(System.DefaultWorkingDirectory)'
+             # projectName: 'user-mgmt'
           
           - task: SonarQubePrepare@5
             inputs:
