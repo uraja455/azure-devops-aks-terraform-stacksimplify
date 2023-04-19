@@ -20,7 +20,33 @@ stages:
       - job: BuildJob
         displayName: Build
         steps:
-           
+          - task: WhiteSource@21
+            inputs:
+              cwd: '$(System.DefaultWorkingDirectory)'
+              projectName: 'user-mgmt'
+          
+          #- task: SonarQubePrepare@5
+           # inputs:
+            #  SonarQube: 'sonarsvc'
+             # scannerMode: 'Other'
+              #extraProperties: 'sonar.projectKey=Aks-terraform-devops-stacksimplify_Aks-terraform-devops-stacksimplify_AYdmyFUiwV4bTNVPSQ2V'
+          
+          #- task: Maven@4
+           # inputs:
+            #  mavenPomFile: 'pom.xml'
+             # publishJUnitResults: false
+              #javaHomeOption: 'JDKVersion'
+              #mavenVersionOption: 'Default'
+              #mavenAuthenticateFeed: false
+              #effectivePomSkip: false
+              #sonarQubeRunAnalysis: true
+              #sqMavenPluginVersionChoice: 'latest'
+          #- task: SonarQubeAnalyze@5
+          #- task: SonarQubePublish@5
+           # inputs:
+            #  pollingTimeoutSec: '300' 
+
+          
           - task: Docker@2
             inputs:
               containerRegistry: 'DockerSVC'
@@ -28,6 +54,8 @@ stages:
               command: 'buildAndPush'
               Dockerfile: '**/Dockerfile'
               tags: '$(tag)'
+            
+           
 
           - bash: echo Contents in System Default Working Directory; ls -R $(System.DefaultWorkingDirectory)        
           - bash: echo Before copying Contents in Build Artifact Directory; ls -R $(Build.ArtifactStagingDirectory)        
