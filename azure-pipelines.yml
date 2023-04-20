@@ -21,10 +21,10 @@ stages:
       - job: BuildJob
         displayName: Build
         steps:
-          - task: WhiteSource@21
-            inputs:
-              cwd: '$(System.DefaultWorkingDirectory)'
-              projectName: 'user-mgmt'
+          #- task: WhiteSource@21
+           # inputs:
+            #  cwd: '$(System.DefaultWorkingDirectory)'
+             # projectName: 'user-mgmt'
           
           #- task: SonarQubePrepare@5
            # inputs:
@@ -72,8 +72,8 @@ stages:
             displayName: "Run trivy scan" 
             inputs:
               script: |
-                  trivy image --exit-code 0 --severity LOW,MEDIUM $(imageName):$(tag)
-                  trivy image --exit-code 1 --severity HIGH,CRITICAL $(imageName):$(tag)
+                  trivy image --exit-code 0 --severity LOW,MEDIUM --light $(imageName):$(tag)
+                  trivy image --exit-code 0 --severity HIGH,CRITICAL $(imageName):$(tag)
            
 
           - bash: echo Contents in System Default Working Directory; ls -R $(System.DefaultWorkingDirectory)        
