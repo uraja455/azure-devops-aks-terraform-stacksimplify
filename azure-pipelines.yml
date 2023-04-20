@@ -8,6 +8,7 @@ trigger:
 
 variables:
   tag: '$(Build.BuildId)'
+  imageName: 'umakanth455/user-management'
 
 
 pool:
@@ -54,7 +55,20 @@ stages:
               command: 'buildAndPush'
               Dockerfile: '**/Dockerfile'
               tags: '$(tag)'
-            
+          
+          - script: |
+              sudo apt-get install rpm
+              wget https://github.com/aquasecurity/trivy/releases/download/v$(trivyVersion)/trivy_$(trivyVersion)_Linux-64bit.deb
+              sudo dpkg -i trivy_$(trivyVersion)_Linux-64bit.deb
+              trivy -v
+            displayName: 'Download and install Trivy'
+          
+          - task: CmdLine@2
+            displayName: "Run trivy scan" 
+            inputs:
+              script: |
+                  trivy image --exit-code 0 --severity LOW,MEDIUM $(imageName):$(tag)
+                  trivy image --exit-code 1 --severity HIGH,CRITICAL $(imageName):$(tag)
            
 
           - bash: echo Contents in System Default Working Directory; ls -R $(System.DefaultWorkingDirectory)        
