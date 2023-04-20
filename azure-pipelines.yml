@@ -56,12 +56,17 @@ stages:
               Dockerfile: '**/Dockerfile'
               tags: '$(tag)'
           
-          - script: |
-              sudo apt-get install rpm
-              wget https://github.com/aquasecurity/trivy/releases/download/v$(trivyVersion)/trivy_$(trivyVersion)_Linux-64bit.deb
-              sudo dpkg -i trivy_$(trivyVersion)_Linux-64bit.deb
-              trivy -v
-            displayName: 'Download and install Trivy'
+          - task: CmdLine@2
+            displayName: DOWNLOAD AND INSTALL AQUASEC TRIVY
+            inputs:
+              script: |
+                sudo apt-get install wget apt-transport-https gnupg lsb-release
+                wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+                echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+                sudo apt-get update
+                sudo apt-get install trivy
+                trivy -v
+                pwd
           
           - task: CmdLine@2
             displayName: "Run trivy scan" 
